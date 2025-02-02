@@ -18,8 +18,6 @@ class _AuthScreenState extends State<AuthScreen> {
 
     if(_isValid ){
       _form.currentState!.save();
-      print(_enteredEmail);
-      print(_enteredPassword`);
     }
   }
 
@@ -102,6 +100,10 @@ class _AuthScreenState extends State<AuthScreen> {
                             child: Text(_isLogin
                                 ? 'Create an Account'
                                 : 'I already have an account.'),
+
+
+
+
                           ),
                         ],
                       ),
