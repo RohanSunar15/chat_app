@@ -1,28 +1,25 @@
 {
-  "hosting": {
-    "public": "public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
-  },
-  "firestore": [
-    {
-      "database": "(default)",
-      "rules": "firestore.default.rules",
-      "indexes": "firestore.default.indexes.json"
-    },
-    {
-      "database": "ecommerce",
-      "rules": "firestore.ecommerce.rules",
-      "indexes": "firestore.ecommerce.indexes.json"
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "chatapp-7c8b7",
+          "appId": "1:626745613758:android:432217cccf21cfcf766def",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "chatapp-7c8b7",
+          "configurations": {
+            "android": "1:626745613758:android:432217cccf21cfcf766def",
+            "ios": "1:626745613758:ios:41f47ea865c9cbd2766def",
+            "macos": "1:626745613758:ios:41f47ea865c9cbd2766def",
+            "web": "1:626745613758:web:cde71798ac5a5bb2766def",
+            "windows": "1:626745613758:web:a64725cd491aceea766def"
+          }
+        }
+      }
     }
-  ],
-  "functions": {
-    "predeploy": [
-      "npm --prefix \"$RESOURCE_DIR\" run lint",
-      "npm --prefix \"$RESOURCE_DIR\" run build"
-    ]
   }
 }
