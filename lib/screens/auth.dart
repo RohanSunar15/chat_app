@@ -72,7 +72,8 @@ class _AuthScreenState extends State<AuthScreen> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            if(!_isLogin) UserImagePicker(),
+                            if(!_isLogin)
+                              UserImagePicker(),
                             TextFormField(
                               decoration: const InputDecoration(
                                 labelText: 'Email Address',
