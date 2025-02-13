@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chat_app/widgets/user_image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   final _form = GlobalKey<FormState>();
   var _isLogin = true;
+  var _enteredUsername = '';
   var _enteredEmail = '';
   var _enteredPassword = '';
   File? _selectedImage;
@@ -51,6 +53,15 @@ class _AuthScreenState extends State<AuthScreen> {
         await storageRef.putFile(_selectedImage!);
         final imageUrl = await storageRef.getDownloadURL();
         print(imageUrl);
+
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredentials.user!.uid)
+            .set({
+          'username': _enteredUsername,
+          'email' : _enteredEmail,
+          'image_url' : imageUrl,
+        });
 
       }
     } on FirebaseAuthException catch (error) {
@@ -95,10 +106,27 @@ class _AuthScreenState extends State<AuthScreen> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+
                             if(!_isLogin)
                               UserImagePicker(onPickImage: (pickedImage) {
                                 _selectedImage = pickedImage;
                               }),
+                            if(!_isLogin)
+                              TextFormField(
+                                decoration: const InputDecoration(
+                                  labelText: 'UserName',
+                                ),
+                                enableSuggestions: false,
+                                validator: (value) {
+                                  if(value == null || value.isEmpty || value.trim().length<4){
+                                    return 'Please enter a Name more than 4 characters ';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value){
+                                  _enteredUsername = value!;
+                                },
+                              ),
                             TextFormField(
                               decoration: const InputDecoration(
                                 labelText: 'Email Address',
